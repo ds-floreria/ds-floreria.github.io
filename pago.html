@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>Formulario de Pago</title>
+</head>
+<link rel="stylesheet" type="text/css" href="pago.css">
+<body bgcolor="#cdc8aa"><center>
+  <h1>Formulario de Compra</h1>
+  <form id="paymentForm">
+    <div class="form-group">
+      <label>Seleccione método de pago:</label><br>
+      <input type="radio" name="metodoPago" value="efectivo" checked> Efectivo
+      <input type="radio" name="metodoPago" value="tarjeta"> Tarjeta
+    </div>
+
+    <div id="datosTarjeta" class="form-group hidden">
+      <label>Número de tarjeta:</label><br>
+      <input type="text" name="numeroTarjeta" maxlength="16">
+      <br><br>
+      <label>NIP:</label><br>
+      <input type="password" name="nip" maxlength="4">
+    </div>
+
+    <div id="datosGenerales">
+      <div class="form-group">
+        <label>Nombre:</label><br>
+        <input type="text" name="nombre">
+      </div>
+      <div class="form-group">
+        <label>Apellido:</label><br>
+        <input type="text" name="apellido">
+      </div>
+      <div class="form-group">
+        <label>Correo electrónico:</label><br>
+        <input type="email" name="correo">
+      </div>
+      <div class="form-group">
+        <label>Dirección de casa:</label><br>
+        <input type="text" name="direccion">
+      </div>
+      <div class="form-group">
+        <label>Número de casa:</label><br>
+        <input type="text" name="numeroCasa">
+      </div>
+    </div>
+
+    <button type="submit">Comprar</button>
+  </form></center>
+
+  <script>
+    const metodoPagoRadios = document.querySelectorAll('input[name="metodoPago"]');
+    const datosTarjeta = document.getElementById('datosTarjeta');
+    const formulario = document.getElementById('paymentForm');
+
+    // Función para actualizar la visibilidad de los campos según el método de pago
+    function actualizarFormulario() {
+      const metodoSeleccionado = document.querySelector('input[name="metodoPago"]:checked').value;
+      datosTarjeta.classList.toggle('hidden', metodoSeleccionado !== 'tarjeta');
+    }
+
+    metodoPagoRadios.forEach(radio => {
+      radio.addEventListener('change', actualizarFormulario);
+    });
+
+    formulario.addEventListener('submit', function(e) {
+      e.preventDefault();
+      alert('Pedido realizado con éxito');
+      window.location.href = 'catalogo.html';
+    });
+
+    // Inicializa visibilidad correcta al cargar
+    actualizarFormulario();
+  </script>
+</body>
+</html>
